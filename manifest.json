@@ -1,0 +1,113 @@
+{
+  "name": "fslmerge",
+  "label": "FSL: FSLMERGE - FMRIB Merge Tool (FAST4, v5.0.9)",
+  "description": "FSLMERGE (FMRIB) concatenates image files into a single output. This concatenation can be in time, or in X, Y or Z. All image dimensions (except for the one being concatenated over) must be the same in all input images. For example, this can be used to take multiple 3D files (eg as output by SPM) and create a single 4D image file.",
+  "maintainer": "Michael Perry <lmperry@stanford.edu>",
+  "author": "Analysis Group, FMRIB, Oxford, UK.",
+  "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Fslutils",
+  "source": "https://github.com/scitran-apps/fslmerge",
+  "license": "Apache-2.0",
+  "flywheel": "0",
+  "version": "0.1",
+  "custom": {
+    "docker-image": "scitran/fslmerge:v0.1"
+  },
+  "config": {
+    "catTime": {
+      "description": "concatenate images in time (default=false)",
+      "default": false,
+      "type": "boolean",
+      "id": "-t"
+    },
+    "catX": {
+      "description": "concatenate images in the x direction",
+      "default": false,
+      "type": "boolean",
+      "id": "-x"
+    },
+    "catY": {
+      "description": "concatenate images in the y direction",
+      "default": false,
+      "type": "boolean",
+      "id": "-y"
+    },
+    "catZ": {
+      "description": "concatenate images in the z direction",
+      "default": false,
+      "type": "boolean",
+      "id": "-z"
+    },
+    "auto": {
+      "description": "auto-choose: single slices -> volume, volumes -> 4D (time series) [default=true]",
+      "default": true,
+      "type": "boolean",
+      "id": "-a"
+    },
+    "catTR": {
+      "description": "concatenate images in time and set the output image tr to this value",
+      "default": 0,
+      "type": "number",
+      "id": "-tr"
+    }
+  },
+  "inputs": {
+    "nifti_1": {
+      "description": "NIfTI image to be merged.",
+      "base": "file",
+      "type": {
+        "enum": [
+          "nifti"
+        ]
+      }
+    },
+    "nifti_2": {
+      "description": "NIfTI image to be merged.",
+      "base": "file",
+      "type": {
+        "enum": [
+          "nifti"
+        ]
+      }
+    },
+    "bval_1": {
+      "description": "BVAL file to be merged.",
+      "base": "file",
+      "optional": true,
+      "type": {
+        "enum": [
+          "bval"
+        ]
+      }
+    },
+    "bval_2": {
+      "description": "BVAL file to be merged.",
+      "base": "file",
+      "optional": true,
+      "type": {
+        "enum": [
+          "bval"
+        ]
+      }
+    },
+    "bvec_1": {
+      "description": "BVEC file to be merged.",
+      "base": "file",
+      "optional": true,
+      "type": {
+        "enum": [
+          "bvec"
+        ]
+      }
+    },
+    "bvec_2": {
+      "description": "BVEC file to be merged.",
+      "base": "file",
+      "optional": true,
+      "type": {
+        "enum": [
+          "bvec"
+        ]
+      }
+    }
+  }
+}
