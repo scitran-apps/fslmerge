@@ -128,7 +128,7 @@ if [[ -n "$NIFTI_1" ]] && [[ -n "$NIFTI_2" ]]; then
   fi
 
   # Merge the images
-  fslmerge ${OPTIONS} "$output_file_base".nii.gz "$NIFTI_1" "$NIFTI_2" $TR
+  fslmerge ${OPTIONS} "$output_file_base".nii.gz "$NIFTI_1" "$NIFTI_2" "$TR"
   exit_status=$?
 
 else

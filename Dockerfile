@@ -13,7 +13,6 @@ RUN echo deb http://neurodeb.pirsquared.org trusty main contrib non-free >> /etc
 RUN apt-get update \
     && apt-get install -y \
         fsl-5.0-core \
-        zip \
         jq
 
 # Make directory for flywheel spec (v0)

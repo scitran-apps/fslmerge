@@ -50,7 +50,7 @@
       "id": "-tr"
     },
     "base_outname": {
-      "description": "Base name for output file(s) [by default, 'none' signals the code to use the input filenames to generate a base name]",
+      "description": "Base name for output file(s) [by default, 'none' signals the code to use the input filenames, separated by '_', to generate a base name]",
       "default": "none",
       "base": "file",
       "type": "string"
