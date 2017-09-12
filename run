@@ -87,14 +87,24 @@ OPTIONS="$catTime $catX $catY $catZ $auto $catTR"
 ###############################################################################
 # Generate paths to input data
 
-NIFTI_1=$(find $INPUT_DIR/nifti_1/* -type f -name "*.nii*" | head -1)
-NIFTI_2=$(find $INPUT_DIR/nifti_2/* -type f -name "*.nii*" | head -1)
+NIFTI_1=$(find $INPUT_DIR/NIFTI_1/* -type f -name "*.nii*" | head -1)
+NIFTI_2=$(find $INPUT_DIR/NIFTI_2/* -type f -name "*.nii*" | head -1)
 
-BVAL_1=$(find $INPUT_DIR/bval_1/* -type f -name "*.bval*" | head -1)
-BVAL_2=$(find $INPUT_DIR/bval_2/* -type f -name "*.bval*" | head -1)
+if [[ -d $INPUT_DIR/BVAL_1 ]] && [[ -d $INPUT_DIR/BVAL_2 ]]; then
+  BVAL_1=$(find $INPUT_DIR/BVAL_1/* -type f -name "*.bval*" | head -1)
+  BVAL_2=$(find $INPUT_DIR/BVAL_2/* -type f -name "*.bval*" | head -1)
+else
+  BVAL_1=''
+  BVAL_2=''
+fi
 
-BVEC_1=$(find $INPUT_DIR/bvec_1/* -type f -name "*.bvec*" | head -1)
-BVEC_2=$(find $INPUT_DIR/bvec_2/* -type f -name "*.bvec*" | head -1)
+if [[ -d $INPUT_DIR/BVEC_1 ]] && [[ -d $INPUT_DIR/BVEC_2 ]]; then
+  BVEC_1=$(find $INPUT_DIR/BVEC_1/* -type f -name "*.bvec*" | head -1)
+  BVEC_2=$(find $INPUT_DIR/BVEC_2/* -type f -name "*.bvec*" | head -1)
+else
+  BVEC_1=''
+  BVEC_2=''
+fi
 
 
 ###############################################################################
@@ -119,7 +129,7 @@ merge_bval () {
 # RUN the MERGE Algorithm
 
 if [[ -n "$NIFTI_1" ]] && [[ -n "$NIFTI_2" ]]; then
-  echo "$CONTAINER  Running fslmerge ..."
+  echo "$CONTAINER  Running fslmerge on $NIFTI_1 & $NIFTI_2..."
 
   # Set the output file basename if not already defined by config
   if [[ -z $output_file_base ]]; then
@@ -128,16 +138,19 @@ if [[ -n "$NIFTI_1" ]] && [[ -n "$NIFTI_2" ]]; then
   fi
 
   # Merge the images
-  fslmerge ${OPTIONS} "$output_file_base".nii.gz "$NIFTI_1" "$NIFTI_2" "$TR"
+  fslmerge ${OPTIONS} "$output_file_base".nii.gz "$NIFTI_1" "$NIFTI_2" $TR
   exit_status=$?
-
+  if [[ $exit_status != 0 ]]; then
+    echo "$CONTAINER  fslmerge exited with failures ($exit_status)"
+    exit 1
+  fi
 else
   echo "$CONTAINER  $INPUT_DIR has no valid input files!"
   exit 1
 fi
 
 if [[ -n "$BVAL_1" ]] && [[ -n "$BVAL_2" ]]; then
-  echo "$CONTAINER  Running merge_bval ..."
+  echo "$CONTAINER  Running merge_bval on $BVAL_1 & $BVAL_2..."
   merge_bval "$BVAL_1" "$BVAL_2" "$output_file_base".bval
   merge_bval_exit=$?
 else
@@ -145,7 +158,7 @@ else
 fi
 
 if [[ -n "$BVEC_1" ]] && [[ -n "$BVEC_2" ]]; then
-  echo "$CONTAINER  Running merge_bvec ..."
+  echo "$CONTAINER  Running merge_bvec on $BVEC_1 & $BVEC_2..."
   merge_bvec "$BVEC_1" "$BVEC_2" "$output_file_base".bvec
   merge_bvec_exit=$?
 else

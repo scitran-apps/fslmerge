@@ -26,7 +26,7 @@
       "id": "-x"
     },
     "catY": {
-      "description": "concatenate images in the y direction  [(]default=false]",
+      "description": "concatenate images in the y direction  [default=false]",
       "default": false,
       "type": "boolean",
       "id": "-y"
@@ -57,7 +57,7 @@
     }
   },
   "inputs": {
-    "nifti_1": {
+    "NIFTI_1": {
       "description": "NIfTI image to be merged.",
       "base": "file",
       "type": {
@@ -66,7 +66,7 @@
         ]
       }
     },
-    "nifti_2": {
+    "NIFTI_2": {
       "description": "NIfTI image to be merged.",
       "base": "file",
       "type": {
@@ -75,7 +75,7 @@
         ]
       }
     },
-    "bval_1": {
+    "BVAL_1": {
       "description": "BVAL file to be merged.",
       "base": "file",
       "optional": true,
@@ -85,7 +85,7 @@
         ]
       }
     },
-    "bval_2": {
+    "BVAL_2": {
       "description": "BVAL file to be merged.",
       "base": "file",
       "optional": true,
@@ -95,7 +95,7 @@
         ]
       }
     },
-    "bvec_1": {
+    "BVEC_1": {
       "description": "BVEC file to be merged.",
       "base": "file",
       "optional": true,
@@ -105,7 +105,7 @@
         ]
       }
     },
-    "bvec_2": {
+    "BVEC_2": {
       "description": "BVEC file to be merged.",
       "base": "file",
       "optional": true,
