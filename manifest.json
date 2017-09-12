@@ -1,7 +1,7 @@
 {
   "name": "fslmerge",
-  "label": "FSL: FSLMERGE - FMRIB Merge Tool (FAST4, v5.0.9)",
-  "description": "FSLMERGE (FMRIB) concatenates image files into a single output. This concatenation can be in time, or in X, Y or Z. All image dimensions (except for the one being concatenated over) must be the same in all input images. For example, this can be used to take multiple 3D files (eg as output by SPM) and create a single 4D image file.",
+  "label": "FSL: FSLMERGE - FMRIB Merge Tool (FSL v5.0)",
+  "description": "FSLMERGE (FMRIB) concatenates image files into a single output. This concatenation can be in time, or in X, Y or Z. All image dimensions (except for the one being concatenated over) must be the same in all input images. For example, this can be used to take multiple 3D files (eg as output by SPM) and create a single 4D image file. This Gear also supports the merger of diffusion data with bvec/bval files.",
   "maintainer": "Michael Perry <lmperry@stanford.edu>",
   "author": "Analysis Group, FMRIB, Oxford, UK.",
   "url": "https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/Fslutils",
@@ -14,25 +14,25 @@
   },
   "config": {
     "catTime": {
-      "description": "concatenate images in time (default=false)",
+      "description": "concatenate images in time [default=false]",
       "default": false,
       "type": "boolean",
       "id": "-t"
     },
     "catX": {
-      "description": "concatenate images in the x direction",
+      "description": "concatenate images in the x direction [default=false]",
       "default": false,
       "type": "boolean",
       "id": "-x"
     },
     "catY": {
-      "description": "concatenate images in the y direction",
+      "description": "concatenate images in the y direction  [(]default=false]",
       "default": false,
       "type": "boolean",
       "id": "-y"
     },
     "catZ": {
-      "description": "concatenate images in the z direction",
+      "description": "concatenate images in the z direction  [default=false]",
       "default": false,
       "type": "boolean",
       "id": "-z"
@@ -44,10 +44,16 @@
       "id": "-a"
     },
     "catTR": {
-      "description": "concatenate images in time and set the output image tr to this value",
+      "description": "concatenate images in time and set the output image tr to this value [default=0, false]",
       "default": 0,
       "type": "number",
       "id": "-tr"
+    },
+    "base_outname": {
+      "description": "Basename for output file(s) [by default, 'none' signals the code to use the input filenames to generate a basename]",
+      "default": "none",
+      "base": "file",
+      "type": "string"
     }
   },
   "inputs": {
