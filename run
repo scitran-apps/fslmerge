@@ -121,7 +121,7 @@ merge_bval () {
 if [[ -n "$NIFTI_1" ]] && [[ -n "$NIFTI_2" ]]; then
   echo "$CONTAINER  Running fslmerge ..."
 
-  # Set the output file base name
+  # Set the output file basename if not already defined by config
   if [[ -z $output_file_base ]]; then
     output_file_base=$OUTPUT_DIR/`basename "$NIFTI_1" .nii.gz`_`basename "$NIFTI_2" .nii.gz`
     output_file_base=$(echo -e "${output_file_base}" | tr -d '[:space:]')
